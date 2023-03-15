@@ -1,4 +1,4 @@
-module Main where
+module Teste where
 
 soma :: Int -> Int -> Int
 soma x y = x + y
@@ -19,10 +19,6 @@ quadruplica x = dobra (dobra x)
 
 fatorial n = product [1..n]
 
-quadrado x = x * x
-
-cubo x = x * x * x
-
 raizquadrada x = sqrt x
 
 raizcubica x = x ** (1/3)
@@ -31,5 +27,10 @@ areaquadrado x = x * x
 
 arearetangulo x y = x * y
 
+areacirculo x = pi * (x * x)
+
 quantosporcento :: Int -> Int -> String
 quantosporcento x y = show (div (x * 100) y) ++ "%"
+
+impar :: Integral a => a -> Bool
+impar n = n `mod` 2 == 1
