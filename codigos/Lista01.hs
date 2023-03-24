@@ -52,3 +52,38 @@ square x = x * x
 fourPower :: Num a => a -> a
 fourPower x = square (square x)
 
+sqrtSeq :: Int -> Double
+sqrtSeq 0 = sqrt 6
+sqrtSeq i = sqrtSeq (i-1) + sqrt 6
+
+choose :: Integer -> Integer -> Integer
+choose m n
+  | n == 0 || n == m = 1
+  | n > m = 0
+  | otherwise = choose (m-1) (n-1) + choose (m-1) n
+
+{-8: mdc com recursão
+A função recebe dois argumentos m e n
+A primeira linha define uma condição para parada, se n for igual a 0, então MDC é m
+Caso contrário a recursão continua passando n como primeiro argumento e o resto da divisão de m por n como segundo argumento-}
+mdc :: Int -> Int -> Int
+mdc m n
+  | n == 0 = m
+  | otherwise = mdc n (m `mod`n)
+
+{-9: Quantos múltiplos um inteiro tem em um intervalo
+-}
+
+howManyMultiples :: Int -> Int -> Int -> Int 
+howManyMultiples n start end = length [x | x <- [start..end], x `mod` n == 0]
+
+ultimoDigito :: Int -> Int
+ultimoDigito x = read [last(show n)]
+{-Aqui é convertido o número em string com a função show e a função last retorna o último caractere, com read converte de volta para inteiro-}
+
+{-
+ultimoDigito :: Int -> Int
+ultimoDigito n = n `mod` 10
+
+aqui o operador % retorna o resto da divisão de n por 10 que será o último digito
+-}
