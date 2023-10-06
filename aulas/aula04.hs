@@ -104,8 +104,8 @@ contaMestreMasculino x
 
 menor_matricula :: Int -> Professor
 menor_matricula x
-    | x == 1 = base 1
-    | otherwise = professorAntigo (base x)+ menor_matricula(x-1)
+    | x == 1 = base 0
+    | otherwise = professorAntigo (base x) (menor_matricula(x-1))
 
 professorAntigo :: Professor -> Professor -> Professor
 professorAntigo x y
@@ -117,3 +117,4 @@ professorAntigo x y
 
 matricula :: Professor -> Int
 matricula (m,n,f,s) = m
+
