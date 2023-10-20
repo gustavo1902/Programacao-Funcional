@@ -1,35 +1,69 @@
-vendas :: Int -> Int -- recebe um número para ser o parâmetro de x e retorna o respectivo valor.
-vendas x             -- recebe o valor informado para x
-    | x == 0 = 12    -- executa compação, caso seja igual será retorna o valor
-    | x == 1 = 15
-    | x == 2 = 20
-    | x == 3 = 25
-    | otherwise  = 0 -- caso o valor passado de x não seja um dos anteriores, retorna 0 como um método de parada para a função
+a :: Int -> Int
+a a = a 
 
-{- 
-a função vendas retorna a 
-quantidade para um determinado valor de x
--}
+soma :: Int -> Int -> Int
+soma a b = a + b
 
-totalVendas :: Int -> Int
-totalVendas n
-    | n == 0 = vendas 0                   -- método de parada
-    | n > 0 = totalVendas (n-1) + (vendas n) -- 
-    | otherwise = 0
+subtracao :: Int -> Int -> Int
+subtracao a b = a - b
 
-{-
-Soma dos inteiros de 0 a N:
-sumi 0 = 0
-sumi n = 0 + 1 + 2 + ... + (n-1) + n
-sumi n = sumi (n-1) + n
--}
-sumi :: Int -> Int 
-sumi n 
-    | n <= 0 = 0
-    | otherwise = n + sumi (n-1)
+multiplica :: Int -> Int -> Int
+multiplica a b = a * b
 
---Fatorial de n
-fatorial :: Integer -> Integer
-fatorial n 
-    | n <= 0 = 1
-    | otherwise = n * fatorial (n-1)
+divide :: Double -> Double -> Maybe Double
+divide a b
+    | b == 0    = Nothing
+    | otherwise = Just (a / b)
+
+
+square :: Int -> Int
+square x = x * x
+
+allEqual :: Int -> Int -> Int -> Bool
+allEqual a b c = (a==b) && (a==c)
+
+maxi :: Int -> Int -> Int
+maxi a b 
+    | a < b = b
+    |otherwise = a
+
+min :: Int -> Int -> Int
+min a b
+    | a > b = b
+    | otherwise = a
+
+raizesReais :: Double -> Double -> Double -> Int
+raizesReais a b c
+    | delta > 0  = 2  -- Duas raízes reais distintas
+    | delta == 0 = 1  -- Uma única raiz real (raiz dupla)
+    | otherwise  = 0  -- Nenhuma raiz real
+  where
+    delta = b^2 - 4*a*c
+
+distanciaEuclidiana :: (Double, Double) -> (Double, Double) -> Double
+distanciaEuclidiana (x1, y1) (x2, y2)
+    | x1 == x2  = abs (y2 - y1)  -- Caso x1 seja igual a x2
+    | y1 == y2  = abs (x2 - x1)  -- Caso y1 seja igual a y2
+    | otherwise = sqrt ((x2 - x1)^2 + (y2 - y1)^2)
+
+isPrime :: Integer -> Bool
+isPrime n
+    | n <= 1    = False
+    | otherwise = not $ any (\x -> n `mod` x == 0) [2..(floor $ sqrt $ fromIntegral n)]
+
+primeNumbers :: Integer -> [Integer]
+primeNumbers n = take (fromIntegral n) [x | x <- [2..], isPrime x]
+
+isEven :: Int -> Bool
+isEven a
+    | mod a 2 == 0 = True
+    | otherwise = False
+
+isOdd :: Int -> Bool
+isOdd a
+    | a `mod` 2 == 0 = False
+    | otherwise = True
+
+
+
+

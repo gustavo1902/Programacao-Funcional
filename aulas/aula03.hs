@@ -1,69 +1,120 @@
-a :: Int -> Int
-a a = a 
+-- script com tuplas
+type Nome = String -- Sinônimo para String (Nome)
+type Idade = Int -- Sinônimo para Int (Idade)
 
-soma :: Int -> Int -> Int
-soma a b = a + b
+verIdade :: (Nome, Idade) -> Idade
+verIdade (a,b) = b
+-- Função que se passa uma tupla verIdade (a,b) = b
+-- (Nome, Idade), e devolve a idade
 
-subtracao :: Int -> Int -> Int
-subtracao a b = a - b
+type Meu_tipo = (String, Float, Char)
 
-multiplica :: Int -> Int -> Int
-multiplica a b = a * b
+pessoa :: Float -> Meu_tipo
+pessoa rg
+    | rg == 1 = ("Joao Silva",12,'m')
+    | rg == 2 = ("Jonas Souza",81,'m')
+    | rg == 3 = ("Joice Silva",12,'f')
+    | rg == 4 = ("Janete Souza",10,'f')
+    | rg == 5 = ("Jocileide Strauss",21,'f')
+    | otherwise = ("Nao há mais ninguem",0,'x')
 
-divide :: Double -> Double -> Maybe Double
-divide a b
-    | b == 0    = Nothing
-    | otherwise = Just (a / b)
+ehfeminino :: Meu_tipo -> Int
+ehfeminino (n,i,s)
+    | s == 'f' = 1
+    | otherwise = 0   
 
-
-square :: Int -> Int
-square x = x * x
-
-allEqual :: Int -> Int -> Int -> Bool
-allEqual a b c = (a==b) && (a==c)
-
-maxi :: Int -> Int -> Int
-maxi a b 
-    | a < b = b
-    |otherwise = a
-
-min :: Int -> Int -> Int
-min a b
-    | a > b = b
-    | otherwise = a
-
-raizesReais :: Double -> Double -> Double -> Int
-raizesReais a b c
-    | delta > 0  = 2  -- Duas raízes reais distintas
-    | delta == 0 = 1  -- Uma única raiz real (raiz dupla)
-    | otherwise  = 0  -- Nenhuma raiz real
-  where
-    delta = b^2 - 4*a*c
-
-distanciaEuclidiana :: (Double, Double) -> (Double, Double) -> Double
-distanciaEuclidiana (x1, y1) (x2, y2)
-    | x1 == x2  = abs (y2 - y1)  -- Caso x1 seja igual a x2
-    | y1 == y2  = abs (x2 - x1)  -- Caso y1 seja igual a y2
-    | otherwise = sqrt ((x2 - x1)^2 + (y2 - y1)^2)
-
-isPrime :: Integer -> Bool
-isPrime n
-    | n <= 1    = False
-    | otherwise = not $ any (\x -> n `mod` x == 0) [2..(floor $ sqrt $ fromIntegral n)]
-
-primeNumbers :: Integer -> [Integer]
-primeNumbers n = take (fromIntegral n) [x | x <- [2..], isPrime x]
-
-isEven :: Int -> Bool
-isEven a
-    | mod a 2 == 0 = True
-    | otherwise = False
-
-isOdd :: Int -> Bool
-isOdd a
-    | a `mod` 2 == 0 = False
-    | otherwise = True
+contaFeminino :: Float-> Int 
+contaFeminino rg 
+    | rg == 1 = ehfeminino (pessoa 1)
+    | otherwise = ehfeminino (pessoa rg) + contaFeminino (rg -1)
 
 
+menor_idade :: Float -> Meu_tipo
+menor_idade x
+    | x == 1 = pessoa 1
+    | otherwise = menor (pessoa x)(menor_idade(x-1))
 
+menor :: Meu_tipo -> Meu_tipo -> Meu_tipo
+menor x y
+    |x1 <= x2 = x
+    |otherwise = y
+        where
+        x1 = idade x
+        x2 = idade y
+
+idade :: Meu_tipo -> Float
+idade (x,y,z) = y
+
+media_idade :: Float -> Float
+media_idade x = (soma_idade x)/x
+
+soma_idade :: Float -> Float -- novamente aparecem as funções auxiliares
+soma_idade x
+    | x == 1 = idade(pessoa 1)
+    | otherwise = idade(pessoa x) + (soma_idade(x-1))
+
+
+---------------------------------------------------------------------------
+type Professor = (Int, String, String, Char)
+
+base :: Int -> Professor
+base x
+    |x == 0 = (1793, "Pedro Paulo", "MESTRE",'M')
+    |x == 1 = (1797, "Joana S. Alencar", "MESTRE",'M')
+    |x == 2 = (1534, "Joao de Medeiros", "DOUTOR",'F')
+    |x == 3 = (1267, "Claudio Cesar de Sá", "DOUTOR",'M')
+    |x == 4 = (1737, "Paula de Medeiros", "MESTRE",'F')
+    |x == 5 = (1888, "Rita de Matos", "MESTRE",'F')
+    |x == 6 = (1356, "Rodolfo Roberto", "DOUTOR", 'M')
+    |x == 7 = (1586, "Célia Maria de Sousa", "DOUTOR", 'F')
+    |x == 8 = (1800, "Josimar Justino", "MESTRE", 'M')
+    |x == 9 = (1698, "Tereza C. Andrade", "MESTRE",'F')
+    |x == 10 = ( 0, "" , "" ,'0')
+
+ehDoutor :: Professor -> Int
+ehDoutor (m,n,f,s)
+    | f == "DOUTOR" = 1
+    | otherwise = 0 
+ 
+contaDoutor :: Int-> Int 
+contaDoutor x 
+    | x == 2 = ehDoutor (base 2)
+    | otherwise = ehDoutor (base x) + contaDoutor (x -1)
+
+ehMulher :: Professor -> Int
+ehMulher (m,n,f,s)
+    | s == 'F' = 1
+    | otherwise = 0   
+
+contaMulher :: Int-> Int 
+contaMulher x
+    | x == 1 = ehMulher (base 1)
+    | otherwise = ehMulher (base x) + contaMulher (x -1)
+    
+ehHomemMestre :: Professor -> Int
+ehHomemMestre (m,n,f,s)
+    | f == "MESTRE" && s == 'M' = 1
+    | otherwise = 0
+
+contaMestreMasculino :: Int -> Int
+contaMestreMasculino x 
+    | x == 0 = ehHomemMestre (base 0)
+    | otherwise = ehHomemMestre (base x) + contaMestreMasculino (x-1)
+
+
+menor_matricula :: Int -> Professor
+menor_matricula x
+    | x == 1 = base 0
+    | otherwise = professorAntigo (base x) (menor_matricula(x-1))
+
+professorAntigo :: Professor -> Professor -> Professor
+professorAntigo x y
+    |x1 <= x2 = x
+    |otherwise = y
+        where
+        x1 = matricula x
+        x2 = matricula y
+
+matricula :: Professor -> Int
+matricula (m,n,f,s) = m
 
