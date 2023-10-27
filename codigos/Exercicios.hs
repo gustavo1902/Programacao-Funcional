@@ -17,3 +17,14 @@ somaPares []= 0
 somaPares (x:xs)
     | even x = x + somaPares xs
     | otherwise = somaPares xs
+
+fatorial :: Int -> Int
+fatorial 0 = 1
+fatorial 1 = 1
+fatorial x = x * fatorial(x-1)
+
+ehPalindromo :: String -> Bool
+ehPalindromo x = reverse x == x
+
+ehPalindromo :: Integer -> Bool
+ehPalindromo x = 
