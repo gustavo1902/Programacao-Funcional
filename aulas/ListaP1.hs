@@ -34,3 +34,8 @@ diasMes ano mes
     | otherwise = 31
     where anoBissexto = (mod ano 4 == 0)
 
+--5
+dia :: Int -> Int -> Int -> Int
+dia ano mes diaDoMes
+
+
