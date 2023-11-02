@@ -36,6 +36,25 @@ diasMes ano mes
 
 --5
 dia :: Int -> Int -> Int -> Int
-dia ano mes diaDoMes
+dia ano mes dia
+    | not (dataValida ano mes dia) = -1
+    | otherwise = somaDiasAteOMes ano mes + dia
+
+dataValida :: Int -> Int -> Int -> Bool
+dataValida ano mes dia = mes >= 1 && mes <= 12 && dia >= 1 && dia <= diasNoMes ano mes
+
+somaDiasAteOMes :: Int -> Int -> Int       
+somaDiasAteOMes ano mes = sum (map (diasNoMes ano) [1..mes-1])
+
+diasNoMes :: Int -> Int -> Int        
+diasNoMes ano mes
+    | mes == 2 = if bissexto ano then 29 else 28
+    | elem mes [4, 6, 9, 11] = 30
+    | otherwise = 31
+
+bissexto :: Int -> Bool
+bissexto ano
+    | (ano `mod` 4 == 0 && ano `mod` 100 /= 0) || (ano `mod` 400 == 0) = True
+    | otherwise = False
 
 
