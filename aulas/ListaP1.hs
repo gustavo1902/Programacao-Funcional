@@ -1,8 +1,14 @@
---1
 ehPrimo :: Int -> Bool
-ehPrimo x 
-    | mod x x ==0 && mod x 1 == 0 = True
-    | otherwise = False
+ehPrimo n
+    | n <= 1 = False
+    | otherwise = naoDivisivelPorNenhum n 2  
+
+naoDivisivelPorNenhum :: Int -> Int -> Bool
+naoDivisivelPorNenhum n divisor
+    | divisor > limite = True
+    | n `mod` divisor == 0 = False
+    | otherwise = naoDivisivelPorNenhum n (divisor + 1)
+    where limite = n -1 --Dividir até o antecessor
 
 --2
 ordenaEmTupla :: Int -> Int -> Int -> Int -> (Int, Int, Int, Int)
