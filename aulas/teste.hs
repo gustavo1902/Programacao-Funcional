@@ -1,3 +1,6 @@
-sumDouble :: Num a => [a] -> a
-sumDouble xs = sum [x * 2 | x <- xs]
+
+module Main where
+
+sumDouble :: Int -> Int -> Int
+sumDouble x y = x * 2 + y * 2
 
